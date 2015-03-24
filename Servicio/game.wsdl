@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<definitions name="BlendokuService"
+    targetNamespace="urn:Aritmetica"
+     xmlns:tns="urn:Aritmetica"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns="http://schemas.xmlsoap.org/wsdl/">
+ 
+  <message name="getGamePeticion">
+    <part name="num_partida" type="xsd:int" />
+  </message>
+ 
+  <message name="getGameRespuesta">
+    <part name="colores" type="xsd:string[]" />
+  </message>
+  
+  <message name="checkGamePeticion">
+    <part name="operando1" type="xsd:int" />
+    <part name="operando2" type="xsd:string[]" />
+  </message>
+ 
+  <message name="checkGameRespuesta">
+    <part name="respuesta" type="xsd:int" />
+  </message>
+ 
+  <portType name="GamePort">
+    <operation name="getGame">
+      <input message="tns:getGamePeticion" />
+      <output message="tns:getGameRespuesta" />
+    </operation>
+    <operation name="checkGame">
+      <input message="tns:checkGamePeticion" />
+      <output message="tns:checkGameRespuesta" />
+    </operation>
+  </portType>
+ 
+  <binding name="BlendokuBinding" type="tns:GamePort">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="getGame">
+        <soap:operation soapAction="urn:Blendoku#getGame" />
+        <input>
+          <soap:body use="encoded" namespace="urn:Blendoku"
+                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        </input>
+        <output>
+          <soap:body use="encoded" namespace="urn:Blendoku"
+                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        </output>
+    </operation>
+    <operation name="checkGame">
+        <soap:operation soapAction="urn:Blendoku#checkGame" />
+        <input>
+          <soap:body use="encoded" namespace="urn:Blendoku"
+                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />       
+        </input>
+        <output>
+          <soap:body use="encoded" namespace="urn:Blendoku"
+                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />       
+        </output>
+    </operation>
+    
+  </binding>
+ 
+<service name="BlendokuServicio">
+  <port name="BlendokuPort" binding="tns:BlendokuBinding">
+    <soap:address location="http://localhost/Blendoku/Servicio/blendoku_service.php" />
+  </port>
+</service>
+</definitions>
