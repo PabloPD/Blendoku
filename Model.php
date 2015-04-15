@@ -13,7 +13,7 @@ class Model extends ModelPDO {
 //        $colores = $query->fetch(PDO::FETCH_ASSOC);
         $colores = $query->fetchColum();
 
-        return $colores;
+        return array("blue", "black", "yellow", "green", "red");
     }
     
     static function checkGame($partida){
